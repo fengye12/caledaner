@@ -86,7 +86,30 @@
                 });
                 $(me.comfire).on('click', function(event) {
                     event.preventDefault();
-                    me._slider(me.sections)
+                    var st=$('#startDate').val();
+                    var en=$('#endDate').val();
+                    if(st){
+                        me._slider(me.sections)
+                        me._callback();
+
+                    }else{
+                        var b=new Date();
+                        //b.setDate(a.getDate()+1)
+                        var ye=b.getFullYear();
+                        var mo=b.getMonth()+1;
+                        var da=b.getDate();
+                          $('#startDate').val(ye+'-'+mo+'-'+da);
+                        b=new Date(b.getTime()+24*3600*1000);
+                        var ye=b.getFullYear();
+                        var mo=b.getMonth()+1;
+                        var da=b.getDate();
+                        $('#endDate').val(ye+'-'+mo+'-'+da);
+
+                        // alert("请选择入住离店日期")
+                          me._slider(me.sections)
+                          me._callback()
+                    }
+
                     /* Act on the event */
                 });
 
@@ -170,6 +193,12 @@
                                         }
                                     }
 
+                                },
+                                _callback:function(){
+                                    var me=this;
+                                    if(me.settings.callback && $.type(me.settings.callback) === "function"){
+                                        me.settings.callback();
+                                    }
                                 },
                                 _selectDate:function(arry1){
                                     var me=this;
@@ -296,7 +325,8 @@
                                                     endDayMonth=endDayArrayMonth.join('');
 
                                                     $('#endDate').val(endDayYear+'-'+endDayMonth+'-'+day);
-                                                    if(parseInt($("#startDate").val().replace(/[^0-9]/ig,""))==parseInt($("#endDate").val().replace(/[^0-9]/ig,""))){       var x=$('#startDate').val();
+                                                    if(parseInt($("#startDate").val().replace(/[^0-9]/ig,""))==parseInt($("#endDate").val().replace(/[^0-9]/ig,""))){
+                                                    var x=$('#startDate').val();
                                                     var a=new Date(x.replace(/-/g,   "/"));
                                                     var b=new Date();
                                                     //b.setDate(a.getDate()+1)
@@ -327,10 +357,11 @@ $('.week1').text(myweek[en.getDay()])
 me._checkColor(me.comeColor,me.outColor)
 
 
+
 }
                                                 //第二次点击结束
 
-                                            })
+    })
 }
 
 }
@@ -359,13 +390,8 @@ $.fn.calendarSwitch.defaults = {
     comeColor : "blue",       //入住颜色
     outColor : "red",      //离店颜色
     comeoutColor : "#0cf",        //入住和离店之间的颜色
-    direction : "vertical",     //滑动方向vertical,horizontal
-    callback : "" ,   //回调函数
+    callback : "", //回调函数
     comfireBtn:'.comfire'//确定按钮的class或者id
 
 };
-
-$(function(){
-    $('#firstSelect').calendarSwitch();
-});
 })(jQuery);
