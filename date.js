@@ -204,6 +204,7 @@
                                     var me=this;
                                     me.comeColor=me.settings.comeColor;
                                     me.outColor=me.settings.outColor;
+                                    me.comeoutColor=me.settings.comeoutColor;
                                     me.sections = me.selectors.sections;
 
                                     var flag=0;
@@ -239,7 +240,7 @@
                                         $(this).append('<p class="rz">离店</p>')
                                         first=first+1;
                                         for(first;first<second;first++){
-                                            $(arry1[first]).css({'background':'#0CF','color':'#fff'});
+                                            $(arry1[first]).css({'background':me.comeoutColor,'color':'#fff'});
                                         }}else if(first==second){
 
                                             $('.rz').text('离店');
@@ -267,10 +268,10 @@
 
                                             $('.rz').text('离店');
                                             $(this).append('<p class="rz">入住</p>')
-                                            $(this).css({'background':'#09f','color':'#fff'});
+                                            // $(this).css({'background':'#09f','color':'#fff'});
                                             second=second+1;
                                             for(second;second<first;second++){
-                                                $(arry1[second]).css({'background':'#0CF','color':'#fff'});
+                                                $(arry1[second]).css({'background':me.comeoutColor,'color':'#fff'});
                                             }
                                         }
                                         $('.rz').each(function(index, element) {
